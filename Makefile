@@ -1,19 +1,21 @@
 NAME=fdf.a
 HEADER=fdf.h 
-SRC=fdf_main.c read_map.c get_next_line.c get_next_line_utils.c $(wildcard libft/*.c)
+SRC=$(wildcard *.c)
 OBJ=$(SRC:.c=.o)
-CC=cc 
+FRAME_FLAGS = -lmlx -framework OpenGL -framework AppKit
+G_FLAG = -Imlx
+CC=cc
+LIBFT = libft/libft.a
 CFLAGS= -Wall -Werror -Wextra
-AR=ar -rcs
 RM=rm -f
 
 all : $(NAME)
 
-%.c : %.o 
-	$(CC) $(CFLAGS) -c $< -o $@
-
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(LIBFT) $(FRAME_FLAGS) $(OBJ)  -o $(NAME)
+
+%.c : %.o 
+	$(CC) $(G_FLAG) -c $< -o $@
 
 fclean : clean
 	$(RM) $(NAME)

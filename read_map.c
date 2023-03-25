@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marihovh <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/24 03:49:59 by marihovh          #+#    #+#             */
+/*   Updated: 2023/03/24 03:50:04 by marihovh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 int get_height(char *fn)
@@ -6,6 +18,7 @@ int get_height(char *fn)
     int fd;
 
     fd = open(fn, O_RDONLY);
+    printf("%i", fd);
     height = 0;
     while (get_next_line(fd))
         height++;
@@ -54,7 +67,6 @@ void    read_map(char *fn, fdf *data)
     while (i <= data->height)
         data->z_map[i++] = (int *)malloc(sizeof(int) * (data->weight + 1));
     fd = open(fn, O_RDONLY);
-    line = get_next_line(fd);
     i = 0;
     while (1)
     {
@@ -64,4 +76,5 @@ void    read_map(char *fn, fdf *data)
         fill(data->z_map[i], line);
         i++;
     }
+    close(fd);
 }
